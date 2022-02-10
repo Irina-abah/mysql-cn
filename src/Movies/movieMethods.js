@@ -1,12 +1,12 @@
 const Film = require("./movieModel");
-// const yargs = require("yargs");
-// const { hideBin } = require("yargs/helpers");
-// const argv = yargs(hideBin(process.argv)).argv;
 
 exports.addFilm = async (filmObj) => {
   try {
     await Film.sync()
-    await Film.create(filmObj)
+    await Film.create({
+      name: filmObj.title,
+      actor: filmObj.actor
+    })
   } catch (error) {
     console.log(error)
   }
@@ -16,6 +16,19 @@ exports.list = async () => {
   try {
     const allMovies = await Film.findAll()
     console.log(allMovies)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.deleteFilm = async (film) => {
+  try {
+    // await Film.sync()
+    await Film.destroy({
+      where: {
+        id: film.id
+      }
+    })
   } catch (error) {
     console.log(error)
   }
