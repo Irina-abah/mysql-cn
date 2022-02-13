@@ -3,6 +3,7 @@ const yargs = require("yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
 
+// add movie
 exports.addFilm = async (filmObj) => {
   try {
     await Film.sync()
@@ -15,6 +16,7 @@ exports.addFilm = async (filmObj) => {
   }
 }
 
+// list all movies
 exports.list = async () => {
   try {
     const allMovies = await Film.findAll()
@@ -24,6 +26,7 @@ exports.list = async () => {
   }
 }
 
+// list movies by search criteria
 exports.findMovies = async () => {
 	try {
 		if (argv.name) {
@@ -48,6 +51,7 @@ exports.findMovies = async () => {
 	}
 }
 
+// delete movie by ID
 exports.deleteFilm = async (film) => {
   try {
     await Film.destroy({
@@ -60,33 +64,16 @@ exports.deleteFilm = async (film) => {
   }
 }
 
-// exports.updateFilm = async (film) => {
-//   try {
-//     await Film.update(
-//       {
-//         name: film.name,
-//         actor: film.actor,
-//       }
-//       ,
-//       {where: {
-//         id: film.id
-//       }
-//     })
-//       console.log(film.name, "Movie was updated")
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
-
-exports.updateFilm = async (filmId) => {
+// update movie by ID
+exports.updateFilm = async (film) => {
   try {
     await Film.update(
       {
-        state: 0
-      }
-      ,
+        name: film.name,
+        actor: film.actor,
+      },
       {where: {
-        id: filmId
+        id: film.id
       }
     })
       console.log("Movie was updated")
