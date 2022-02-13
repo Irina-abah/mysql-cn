@@ -9,7 +9,9 @@ exports.addFilm = async (filmObj) => {
     await Film.sync()
     await Film.create({
       name: filmObj.name,
-      actor: filmObj.actor
+      actor: filmObj.actor,
+      duration: filmObj.duration,
+      year: filmObj.year
     })
   } catch (error) {
     console.log(error)
@@ -43,6 +45,20 @@ exports.findMovies = async () => {
 				}
 			})
 			console.log(findbyActor);
+		} else if (argv.duration) {
+			const findbyDuration = await Film.findAll({
+				where: {
+					duration: argv.duration
+				}
+			})
+			console.log(findbyDuration);
+		} else if (argv.year) {
+			const findbyYear = await Film.findAll({
+				where: {
+					year: argv.year
+				}
+			})
+			console.log(findbyYear);
 		} else {
 			console.log("No records matching your criteria")
 		}
@@ -71,12 +87,14 @@ exports.updateFilm = async (film) => {
       {
         name: film.name,
         actor: film.actor,
+        duration: film.duration,
+        year: film.year
       },
       {where: {
         id: film.id
       }
     })
-      console.log("Movie was updated")
+      console.log(`Movie id: ${film.id} was updated`)
   } catch (error) {
     console.log(error)
   }

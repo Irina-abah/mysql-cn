@@ -9,6 +9,14 @@ const Film = sequelize.define("Netflix", {
   actor: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  duration: {
+    type: DataTypes.INTEGER,
+    // allowNull: true
+  },
+  year: {
+    type: DataTypes.INTEGER,
+    // allowNull: true
   }
 });
 
